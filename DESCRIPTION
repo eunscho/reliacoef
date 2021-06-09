@@ -1,0 +1,29 @@
+Package: reliacoef
+Type: Package
+Title: Compute and Compare Unidimensional and Multidimensional Reliability Coefficients
+Version: 1.0.0
+Author: Eunseong Cho <bene@kw.ac.kr>
+Maintainer: Eunseong Cho <bene@kw.ac.kr>
+Description: The package reliacoef calculates multiple reliability estimates and compares them with reliability estimates provided by other packages. 
+    Unidimensional reliability estimators provided are as follows. coefficient alpha, 
+    congeneric reliability, the Gilmer-Feldt coefficient, 
+    Feldt's classical congeneric reliability, Hancock's H, Heise-Borhnstedt's Omega, 
+    Kaiser-Caffrey's alpha, and Ten Berge and Zegers' mu series. 
+    Multidimensional reliablity estimators provided are as follows. stratified alpha, maximal reliability,
+    multidimensional parallel reliability, correlated factors reliability, 
+    second-order factor reliability, and bifactor reliability.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports: 
+    Lambda4,
+    lavaan,
+    psych,
+    matrixcalc,
+    tidyverse,
+    Rcsdp
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
