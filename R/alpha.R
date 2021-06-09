@@ -1,0 +1,61 @@
+#' Obtain coefficient alpha
+#'
+#' Alpha, also referred to as Cronbach's alpha or tau-equivalent reliability,
+#' is the most commonly used reliability coefficient.
+#'
+#' History: Kuder and Richardson (1937) first developed this formula, but they
+#'  did name it. At the time, it was referred to as Kuder-Richardson Formula 20.
+#'  Cronbach (1951) argued that this name was strange and insisted on calling it
+#'   coefficient alpha, which is now widely used.
+#'
+#' Interpretations: Alpha can be derived with an ANOVA approach to reliability
+#' (Hoyt 1941).Alpha is lambda3, one of the six lower bound of reliability
+#' (Guttman 1945). Alpha is the average of lambda4 values obtained over all
+#' possible split-halves (Cronbach 1951). Alpha equals  reliability
+#'  if the x meets the condition of being essentially tau-equivalent (Novick
+#'  & Lewis, 1967). Alpha is mu0, the first in Ten Berge and
+#'  Socan's (1978) series of reliability coefficients.
+#'
+#'  Accuracy: Alpha is found to be inferior in several studies examining the
+#'  accuracy of the reliability coefficients (Cho and Kim 2015). Alpha can
+#'  produce negative reliability estimates and is sensitive to the violation of
+#'  the assumption of essential tau-equivalence (Cho in press).
+#'
+#' @param x a dataframe or a matrix (unidimensional)
+#' @param print If TRUE, the result is printed to the screen.
+#' @return coefficient alpha reliability estimate
+#' @export alpha
+#' @examples alpha(Graham1)
+#' @references Cho, E. (in press). Neither Cronbach's alpha nor McDonald's
+#' omega: A comment on Sijtsma and Pfadt. Psychometrika.
+#' @references Cho, E., & Kim, S. (2015). Cronbach's coefficient alpha: Well
+#' known but poorly understood. Organizational Research Methods, 18(2), 207-230.
+#' @references Cronbach, L. J. (1951). Coefficient alpha and the internal
+#' structure of tests. Psychometrika, 16(3), 297-334
+#' @references Guttman, L. (1945). A basis for analyzing test-retest reliability.
+#'  Psychometrika, 10(4), 255-282.
+#' @references Hoyt, C. (1941). Test reliability estimated by analysis of
+#' variance. Psychometrika, 6(3), 153-160.
+#' @references Kuder, G. F., & Richardson, M. W. (1937). The theory of the
+#' estimation of test reliability. Psychometrika, 2(3), 151-160.
+#' @references Novick, M. R., & Lewis, C. (1967). Coefficient alpha and the
+#' reliability of composite measurements. Psychometrika, 32(1), 1-13.
+#' @references Ten Berge, J. M. F., & Zegers, F. E. (1978). A series of lower
+#' bounds to the reliability of a test. Psychometrika, 43(4), 575-579.
+#' @seealso [mu0()] alpha equals mu0
+#' @seealso [psych::alpha()] for a related function of the package psych
+#' @seealso [Lamdbda4::lambda3()] for a related function of the package Lambda4
+#' @seealso [MBESS::ci.reliability()] for a related function of the package MBESS
+#'
+alpha <- function(x, print = TRUE) {
+  m <- get_cov(x)
+  n <- nrow(m)/(nrow(m) - 1)
+  off <- m
+  diag(off) <- 0
+  out <- n * sum(off)/sum(m)
+  if (print) {
+    cat("coefficient alpha (tau-equivalent reliability, mu0)               ", out,
+        "\n")
+  }
+  invisible(out)
+}
