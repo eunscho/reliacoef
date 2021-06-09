@@ -28,6 +28,7 @@ through the until item.
 }
 \examples{
 second_order(Osburn_moderate, 4)
+second_order(Sijtsma2a, c(2, 4))
 }
 \references{
 Cho, E. (2016). Making reliability reliable: A systematic

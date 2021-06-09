@@ -26,6 +26,7 @@ example, the first dimension consists of the first item through the until item.
 }
 \examples{
 bifactor(Osburn_moderate, 4)
+bifactor(Sijtsma2a, c(2, 4))
 }
 \references{
 Cho, E. (2016). Making reliability reliable: A systematic

@@ -18,6 +18,10 @@ a multidimensional parallel reliability estimate
 Multidimensional parallel reliability is derived from the multidimensional parallel model (Cho, 2016).
 This is equivalent to entering the correlation instead of the covariance into the stratified alpha formula.
 }
+\examples{
+multi_parallel(Osburn_moderate, 4)
+multi_parallel(Sijtsma2a, c(2, 4))
+}
 \references{
 Cho, E. (2016). Making reliability reliable: A systematic
 approach to reliability coefficients. Organizational Research Methods, 19(4),

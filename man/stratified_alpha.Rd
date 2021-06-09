@@ -28,6 +28,7 @@ through the until item.
 }
 \examples{
 stratified_alpha(Osburn_moderate, 4)
+stratified_alpha(Sijtsma2a, c(2, 4))
 }
 \references{
 Rajaratnam, N., Cronbach, L. J., & Gleser, G. C. (1965).
