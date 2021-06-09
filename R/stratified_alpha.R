@@ -22,7 +22,7 @@
 #'
 stratified_alpha <- function(x, until, mp = FALSE) {
   m <- get_cov(x)
-  n <- nrow(x)
+  n <- nrow(m)
   grp_start <- c(1, until + 1)
   grp_end <- c(until, n)
 
