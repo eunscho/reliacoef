@@ -11,14 +11,17 @@
 #' @param only_first_grp TRUE if only_first_grp. In this case, this function does not compute a
 #' reliability estimate.
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param print If TRUE, the result is printed to the screen.
 #' @return a second-order factor reliability estimate
 #' @examples second_order(Osburn_moderate, 4)
+#' @examples second_order(Sijtsma2a, c(2, 4))
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #' 651-682. https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-second_order <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE) {
+second_order <- function(x, until, only_first_grp = FALSE,
+                         nonneg_loading = FALSE, print = TRUE) {
   stopifnot(requireNamespace("lavaan"))
   if (only_first_grp == TRUE) {
     out <- NA
@@ -103,8 +106,11 @@ second_order <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALS
       out <- NA
     }
   }
-  cat("second-order factor reliability (multidimensional CFA)   ", multi_rel, "\n")
-  cat("omega_hierarchical (from second-order factor model)      ", omega_h, "\n")
-  cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
+
+  if (print) {
+    cat("second-order factor reliability (multidimensional CFA)   ", multi_rel, "\n")
+    cat("omega_hierarchical (from second-order factor model)      ", omega_h, "\n")
+    cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
+  }
   invisible(out)
 }

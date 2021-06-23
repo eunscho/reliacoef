@@ -8,14 +8,16 @@
 #' @param x observed item scores or their covariances
 #' @param until The number of items up to the first sub-construct
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param print If TRUE, the result is printed to the screen.
 #' @return a correlated factors reliability estimate
 #' @examples correlated_factors(Osburn_moderate, 4)
+#' @examples correlated_factors(Sijtsma2a, c(2, 4))
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #' 651-682. https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-correlated_factors <- function(x, until, nonneg_loading = FALSE) {
+correlated_factors <- function(x, until, nonneg_loading = FALSE, print = TRUE) {
   stopifnot(requireNamespace("lavaan"))
   m <- get_cov(x)
   n <- nrow(m)
@@ -67,6 +69,9 @@ correlated_factors <- function(x, until, nonneg_loading = FALSE) {
   } else { # NA for non-convergent solutions
     out <- NA
   }
-  cat("correlated factors reliability (multidimensional CFA)    ", multi_rel, "\n")
+
+  if (print) {
+    cat("correlated factors reliability (multidimensional CFA)    ", multi_rel, "\n")
+  }
   invisible(out)
 }

@@ -9,14 +9,17 @@
 #' @param until The number of items up to the first sub-construct
 #' @param only_first_grp whether it is only_first_grp and Cui's simulation, which has only one group factor
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param print If TRUE, the result is printed to the screen.
 #' @return a bifactor reliability estimate
 #' @examples bifactor(Osburn_moderate, 4)
+#' @examples bifactor(Sijtsma2a, c(2, 4))
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #' 651-682. https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE) {
+bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE,
+                     print = TRUE) {
   stopifnot(requireNamespace("lavaan"))
   m <- get_cov(x)
   n <- nrow(m)
@@ -114,8 +117,11 @@ bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE) {
   } else {# NA for non-convergent solutions
     out <- NA
   }
-  cat("bifactor reliability (multidimensional CFA)              ", multi_rel, "\n")
-  cat("omega_hierarchical (from bifactor model)                 ", omega_h, "\n")
-  cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
+
+  if (print) {
+    cat("bifactor reliability (multidimensional CFA)              ", multi_rel, "\n")
+    cat("omega_hierarchical (from bifactor model)                 ", omega_h, "\n")
+    cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
+  }
   invisible(out)
 }
