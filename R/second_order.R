@@ -63,6 +63,7 @@ second_order <- function(x, until, only_first_grp = FALSE,
     }
 
     model_str <- paste0(model_str, "\n SoF ~~ 1 * SoF")
+    model_str <- paste0(model_str, "\n FoF1 ~~ 1 * FoF1")
 
     for (i in 1:n) { # to prevent negative errors
       model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0.0000001")
