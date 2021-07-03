@@ -30,6 +30,7 @@ second_order <- function(x, until, only_first_grp = FALSE,
     n <- nrow(m)
     grp_start <- c(1, until + 1)
     grp_end <- c(until, n)
+    grp_n <- length(until) + 1
     colnames(m) <- rownames(m) <- character(length = n)
     model_str <- vector("character")
 
@@ -88,8 +89,8 @@ second_order <- function(x, until, only_first_grp = FALSE,
       }
 
       # to obtain hierarchical omega
-      lambda <- lavaan::inspect(fit, what = "est")$lambda[, 1:2]
-      beta <- lavaan::inspect(fit, what = "est")$beta[1:2, 3]
+      lambda <- lavaan::inspect(fit, what = "est")$lambda[, 1:grp_n]
+      beta <- lavaan::inspect(fit, what = "est")$beta[1:grp_n, (grp_n+1)]
       omega_h <- sum(lambda %*% beta) ^ 2 / sum(implied)
 
       # fit indices & estimates
