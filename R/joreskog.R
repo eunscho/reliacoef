@@ -1,4 +1,4 @@
-#' Obtain Joreskog's congeneric reliability (Unidimensional CFA reliability)
+#' Obtain Jöreskog's congeneric reliability (Unidimensional CFA reliability)
 #'
 #' Congeneric reliability is a reliability coefficient derived from
 #' unidimensional confirmatory factor analysis (CFA).
@@ -10,8 +10,8 @@
 #' Name: Congeneric reliability is called by a variety of names, general users
 #' usually call it composite reliability, and reliability researchers often call
 #' it omega. One of the reasons for this confusion is that studies that first
-#' proposed this coefficient (Joreskog 1971) did not give this formula a name
-#'  (Cho 2016). Joreskog (1971) proposed a matrix-form formula, and the
+#' proposed this coefficient (Jöreskog 1971) did not give this formula a name
+#'  (Cho 2016). Jöreskog (1971) proposed a matrix-form formula, and the
 #'  commonly known non-matrix formula appears in Werts et al. (1974).
 #'
 #' Frequency of use: Congeneric reliability is the second most commonly used
@@ -25,6 +25,7 @@
 #'
 #' @param x a dataframe or a matrix (unidimensional)
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param nonneg_error if TRUE, cosntraint errors to nonnegative values
 #' @return congeneric reliability coefficient
 #' @export joreskog
 #' @examples joreskog(Graham1)
@@ -38,21 +39,20 @@
 #' @references Werts, C. E., Linn, R. L., & Jöreskog, K. G. (1974). Intraclass
 #' reliability estimates: Testing structural assumptions. Educational and
 #' Psychological Measurement, 34, 25-33.
-#' @seealso [gilmer()] for the Gilmer-Fedlt coefficient
+#' @seealso [gilmer()] for the Gilmer-Feldt coefficient
 #' @seealso [feldt()] for classical congeneric reliability coefficient
 #' @seealso [psych::omega()] for a related function of the package psych
 #' @seealso [MBESS::ci.reliability()] for a related function of the package MBESS
 #' @seealso [Lambda4::omega.tot()] for a related function of the package Lambda4
 #' @import matrixcalc
-#' @family congenerics
 #'
-joreskog <- function(x, nonneg_loading = FALSE) {
+joreskog <- function(x, nonneg_loading = FALSE, nonneg_error = TRUE) {
     stopifnot(requireNamespace("matrixcalc"))
     cov <- get_cov(x)
     if (!matrixcalc::is.positive.definite(cov)) {
       out <- NA
     } else {
-      est <- uni_cfa(cov, nonneg_loading = nonneg_loading)
+      est <- uni_cfa(cov, nonneg_loading = nonneg_loading, nonneg_error = nonneg_error)
       if (any(is.na(est))) {
         out <- NA
       } else {
