@@ -4,6 +4,7 @@
 #' @param what e.g., "est", "std", "fit"
 #' @param sample_size number of sample observations
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param nonneg_error if TRUE, constraint loadings to positive values
 #' @param taueq if TRUE, a tau-equivalent model is estimated
 #' @param parallel if TRUE, a parallel model is estimated
 #' @examples uni_cfa(Graham1)
@@ -11,7 +12,7 @@
 #' @export uni_cfa
 #' @return parameter estimates of unidimensional cfa model
 uni_cfa <- function(cov, what = "est", sample_size = 500, nonneg_loading = FALSE,
-                    taueq = FALSE, parallel = FALSE) {
+                    nonneg_error = TRUE, taueq = FALSE, parallel = FALSE) {
   stopifnot(requireNamespace("lavaan"))
   k <- nrow(cov)
   rownames(cov) <- character(length = k)
@@ -33,8 +34,10 @@ uni_cfa <- function(cov, what = "est", sample_size = 500, nonneg_loading = FALSE
     }
   } else if (!taueq) { # congeneric
     for (i in 1:k) { # to prevent negative errors
-      model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i,
-                          "> .0000001")
+      if (nonneg_error) {
+        model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i,
+                            "> .0000001")
+      }
       if (i > 1 & nonneg_loading) { # prevent negative loadings
         model_str <- paste0(model_str, "\n l", i, "> .0000001")
       }
