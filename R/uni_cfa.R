@@ -36,10 +36,10 @@ uni_cfa <- function(cov, what = "est", sample_size = 500, nonneg_loading = FALSE
     for (i in 1:k) { # to prevent negative errors
       if (nonneg_error) {
         model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i,
-                            "> .0000001")
+                            ">= 0")
       }
       if (i > 1 & nonneg_loading) { # prevent negative loadings
-        model_str <- paste0(model_str, "\n l", i, "> .0000001")
+        model_str <- paste0(model_str, "\n l", i, ">= .0")
       }
     }
   }
