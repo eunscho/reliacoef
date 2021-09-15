@@ -20,7 +20,7 @@
 #' https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-stratified_alpha <- function(x, until, mp = FALSE) {
+stratified_alpha <- function(x, until, mp = FALSE, print = TRUE) {
   m <- get_cov(x)
   n <- nrow(m)
   grp_start <- c(1, until + 1)
@@ -55,14 +55,17 @@ stratified_alpha <- function(x, until, mp = FALSE) {
               omega_hiearchical = omega_h,
               subdimensional_reliability = sub_alpha
               )
-  if (mp) {
+  if (print) {
+    if (mp) {
     cat("multidimensional parallel reliability                    ", multi_rel, "\n")
     cat("omega_hierarchical (from multidimensional parallel  )    ", omega_h, "\n")
     cat("Sub-dimensional reliability (standardized alpha)         ", sub_alpha, "\n")
-  } else {
+    } else {
     cat("stratified alpha (multidimensional reliability)          ", multi_rel, "\n")
     cat("omega_hierarchical (from multidimensional tau-equivalent)", omega_h, "\n")
     cat("Sub-dimensional reliability (coefficient alpha)          ", sub_alpha, "\n")
-  }
+    }
+   }
+  
   invisible(out)
 }
