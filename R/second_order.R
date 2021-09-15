@@ -99,8 +99,8 @@ second_order <- function(x, until, only_first_grp = FALSE,
 
       # output
       out <- list(multidimensional_reliability = multi_rel,
-                  subdimensional_reliability = subdim_rel,
                   hierarchica_omega = omega_h,
+                  subdimensional_reliability = subdim_rel,
                   fit_indices = fit_indices,
                   estimates = est)
 
