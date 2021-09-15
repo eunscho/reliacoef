@@ -9,7 +9,7 @@
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #'  651–682.
-multi_parallel <- function(x, until) {
+multi_parallel <- function(x, until, print = FALSE) {
   r <- stats::cov2cor(get_cov(x))
-  return(stratified_alpha(r, until, mp = TRUE))
+  return(stratified_alpha(r, until, mp = TRUE, print = print))
 }
