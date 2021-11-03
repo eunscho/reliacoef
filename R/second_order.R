@@ -6,41 +6,36 @@
 #' sub-dimension. For example, the first dimension consists of the first item
 #' through the until item.
 #'
-#' @param obs observed item scores or their covariances
+#' @param x observed item scores or their covariances
 #' @param until The number of items up to the first sub-construct
-#' @param nonneg_error if TRUE errors are contrained to be nonnegative
 #' @param only_first_grp TRUE if only_first_grp. In this case, this function does not compute a
 #' reliability estimate.
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param print If TRUE, the result is printed to the screen.
 #' @return a second-order factor reliability estimate
 #' @examples second_order(Osburn_moderate, 4)
+#' @examples second_order(Sijtsma2a, c(2, 4))
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #' 651-682. https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-second_order <- function(obs,
-                         until,
-                         nonneg_error = TRUE,
-                         only_first_grp = FALSE,
-                         nonneg_loading = FALSE) {
+second_order <- function(x, until, only_first_grp = FALSE,
+                         nonneg_loading = FALSE, print = TRUE) {
   stopifnot(requireNamespace("lavaan"))
   if (only_first_grp == TRUE) {
     out <- NA
   } else {
-    if (!isSymmetric(obs)) {
-      cov <- cov(obs)
-    }  else {
-      cov <- obs
-    }
-    n <- nrow(cov)
+    m <- get_cov(x)
+    n <- nrow(m)
     grp_start <- c(1, until + 1)
     grp_end <- c(until, n)
-    colnames(cov) <- rownames(cov) <- character(length = n)
+    grp_n <- length(until) + 1
+    colnames(m) <- rownames(m) <- character(length = n)
     model_str <- vector("character")
 
     for (i in 1:n) {
-      rownames(cov)[i] <- paste0("V", i)
+      rownames(m)[i] <- paste0("V", i)
       if (any(i == grp_start)) {
         which <- which(i == grp_start)
         for (j in i:grp_end[which]) {
@@ -52,7 +47,7 @@ second_order <- function(obs,
         } # end of for (j in i:grp_end[which])
       } # end of if(any(i == grp_start))
     } #end of for (i in 1:n)
-    colnames(cov) <- rownames(cov)
+    colnames(m) <- rownames(m)
 
     for (i in seq_along(grp_start)) {
       if (i == 1) {
@@ -69,17 +64,16 @@ second_order <- function(obs,
     }
 
     model_str <- paste0(model_str, "\n SoF ~~ 1 * SoF")
+    model_str <- paste0(model_str, "\n FoF1 ~~ 1 * FoF1")
 
     for (i in 1:n) { # to prevent negative errors
-      if (nonneg_error) {
-        model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0.0000001")
-      }
+      model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0.0000001")
       if (!any(i == grp_start) & nonneg_loading) { # to prevent negative loadings
         model_str <- paste0(model_str, "\n b", i, " > .0000001")
       }
     }
 
-    fit <- lavaan::cfa(model_str, sample.cov = cov, sample.nobs = 500)
+    fit <- lavaan::cfa(model_str, sample.cov = m, sample.nobs = 500)
     if (lavaan::inspect(fit, what = "converged")) {
       # to obtain multidimensional reliability
       theta <- lavaan::inspect(fit, what = "est")$theta
@@ -95,8 +89,8 @@ second_order <- function(obs,
       }
 
       # to obtain hierarchical omega
-      lambda <- lavaan::inspect(fit, what = "est")$lambda[, 1:2]
-      beta <- lavaan::inspect(fit, what = "est")$beta[1:2, 3]
+      lambda <- lavaan::inspect(fit, what = "est")$lambda[, 1:grp_n]
+      beta <- lavaan::inspect(fit, what = "est")$beta[1:grp_n, (grp_n+1)]
       omega_h <- sum(lambda %*% beta) ^ 2 / sum(implied)
 
       # fit indices & estimates
@@ -105,8 +99,8 @@ second_order <- function(obs,
 
       # output
       out <- list(multidimensional_reliability = multi_rel,
-                  subdimensional_reliability = subdim_rel,
                   hierarchica_omega = omega_h,
+                  subdimensional_reliability = subdim_rel,
                   fit_indices = fit_indices,
                   estimates = est)
 
@@ -114,5 +108,11 @@ second_order <- function(obs,
       out <- NA
     }
   }
-  return(out)
+
+  if (print) {
+    cat("second-order factor reliability (multidimensional CFA)   ", multi_rel, "\n")
+    cat("omega_hierarchical (from second-order factor model)      ", omega_h, "\n")
+    cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
+  }
+  invisible(out)
 }
