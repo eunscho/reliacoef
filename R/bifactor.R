@@ -5,30 +5,36 @@
 #' the bifactor model. Items should be grouped by each sub-dimension. For
 #' example, the first dimension consists of the first item through the until item.
 #'
-#' @param x observed item scores or their covariances
+#' @param obs observed item scores or their covariances
 #' @param until The number of items up to the first sub-construct
+#' @param nonneg_error if TRUE errors are contrained to be nonnegative
 #' @param only_first_grp whether it is only_first_grp and Cui's simulation, which has only one group factor
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
-#' @param print If TRUE, the result is printed to the screen.
 #' @return a bifactor reliability estimate
-#' @examples bifactor(Osburn_moderate, 4)
-#' @examples bifactor(Sijtsma2a, c(2, 4))
+#' @examples bifactor_reliability(Osburn_moderate, 4)
 #' @references Cho, E. (2016). Making reliability reliable: A systematic
 #' approach to reliability coefficients. Organizational Research Methods, 19(4),
 #' 651-682. https://doi.org/10.1177/1094428116656239
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #'
-bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE,
-                     print = TRUE) {
+bifactor <- function(obs,
+                     until,
+                     nonneg_error = TRUE,
+                     only_first_grp = FALSE,
+                     nonneg_loading = FALSE) {
   stopifnot(requireNamespace("lavaan"))
-  m <- get_cov(x)
-  n <- nrow(m)
+  if (isSymmetric(obs)) {
+    cov <- obs
+  } else {
+    cov <- cov(obs)
+  }
+  n <- nrow(cov)
   grp_start <- c(1, until + 1)
   grp_end <- c(until, n)
-  colnames(m) <- rownames(m) <- character(length = n)
+  colnames(cov) <- rownames(cov) <- character(length = n)
 
   for (i in 1:n) {
-    rownames(m)[i] <- paste0("V", i)
+    rownames(cov)[i] <- paste0("V", i)
     # general factor
     if (i == 1) {
       model_str <- paste("F =~ NA*V1")
@@ -81,11 +87,13 @@ bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE,
     }
   }
 
-  for (i in 1:n) { # to prevent negative errors
-    model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0.0000001")
+  if (nonneg_error) {
+    for (i in 1:n) { # to prevent negative errors
+      model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0.0000001")
+    }
   }
 
-  fit <- lavaan::cfa(model_str, sample.cov = m, sample.nobs = 500)
+  fit <- lavaan::cfa(model_str, sample.cov = cov, sample.nobs = 500)
 
   if (lavaan::inspect(fit, what  = "converged")) {
     theta <- lavaan::inspect(fit, what = "est")$theta
@@ -110,18 +118,13 @@ bifactor <- function(x, until, only_first_grp = FALSE, nonneg_loading = FALSE,
 
     # output
     out <- list(multidimensional_reliability = multi_rel,
-                omega_hierarchical = omega_h,
                 subdimensional_reliability = subdim_rel,
+                omega_hierarchical = omega_h,
                 fit_indices = fit_indices,
                 estimates = est)
   } else {# NA for non-convergent solutions
     out <- NA
   }
 
-  if (print) {
-    cat("bifactor reliability (multidimensional CFA)              ", multi_rel, "\n")
-    cat("omega_hierarchical (from bifactor model)                 ", omega_h, "\n")
-    cat("Sub-dimensional reliability (congeneric reliability)     ", subdim_rel, "\n")
-  }
-  invisible(out)
+  return(out)
 }
