@@ -25,7 +25,6 @@
 #'
 #' @param x a dataframe or a matrix (unidimensional)
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
-#' @param nonneg_error if TRUE, cosntraint errors to nonnegative values
 #' @return congeneric reliability coefficient
 #' @export joreskog
 #' @examples joreskog(Graham1)
@@ -46,13 +45,13 @@
 #' @seealso [Lambda4::omega.tot()] for a related function of the package Lambda4
 #' @import matrixcalc
 #'
-joreskog <- function(x, nonneg_loading = FALSE, nonneg_error = TRUE) {
+joreskog <- function(x, nonneg_loading = FALSE, print = TRUE) {
     stopifnot(requireNamespace("matrixcalc"))
     cov <- get_cov(x)
     if (!matrixcalc::is.positive.definite(cov)) {
       out <- NA
     } else {
-      est <- uni_cfa(cov, nonneg_loading = nonneg_loading, nonneg_error = nonneg_error)
+      est <- uni_cfa(cov, nonneg_loading = nonneg_loading)
       if (any(is.na(est))) {
         out <- NA
       } else {
@@ -61,7 +60,9 @@ joreskog <- function(x, nonneg_loading = FALSE, nonneg_error = TRUE) {
         out <- sum_lambda^2/(sum_lambda^2 + sum_theta)
       }
     }
-    cat("Joreskog's congeneric (unidimensional CFA) coefficient            ", out,
-        "\n")
+    if(print) {
+      cat("Joreskog's congeneric (unidimensional CFA) coefficient            ", out,
+          "\n")
+    }
     invisible(out)
 }
