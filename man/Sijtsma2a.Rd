@@ -3,7 +3,7 @@
 \docType{data}
 \name{Sijtsma2a}
 \alias{Sijtsma2a}
-\title{Sitjsma's (2000) six-component multidimensional data}
+\title{Sijtsma's (2000) six-component multidimensional data}
 \format{
 An object of class \code{matrix} (inherits from \code{array}) with 6 rows and 6 columns.
 }

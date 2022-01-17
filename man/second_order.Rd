@@ -4,7 +4,13 @@
 \alias{second_order}
 \title{Obtain second-order factor reliability estimates of two-dimensional data}
 \usage{
-second_order(x, until, only_first_grp = FALSE, nonneg_loading = FALSE)
+second_order(
+  x,
+  until,
+  only_first_grp = FALSE,
+  nonneg_loading = FALSE,
+  print = TRUE
+)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
@@ -15,6 +21,8 @@ second_order(x, until, only_first_grp = FALSE, nonneg_loading = FALSE)
 reliability estimate.}
 
 \item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 a second-order factor reliability estimate

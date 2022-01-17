@@ -21,7 +21,6 @@ the first item through the until item.
 }
 \examples{
 maximal_reliability(Osburn_moderate, 4)
-maximal_reliability(Sijtsma2a, c(2, 4))
 }
 \references{
 Li, H., Rosenthal, R., & Rubin, D. B. (1996). Reliability of

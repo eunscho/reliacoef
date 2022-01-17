@@ -9,6 +9,7 @@ uni_cfa(
   what = "est",
   sample_size = 500,
   nonneg_loading = FALSE,
+  nonneg_error = TRUE,
   taueq = FALSE,
   parallel = FALSE
 )
@@ -21,6 +22,8 @@ uni_cfa(
 \item{sample_size}{number of sample observations}
 
 \item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
+
+\item{nonneg_error}{if TRUE, constraint loadings to positive values}
 
 \item{taueq}{if TRUE, a tau-equivalent model is estimated}
 

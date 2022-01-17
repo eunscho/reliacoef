@@ -8,6 +8,7 @@
 #' @param x observed item scores or their covariances
 #' @param until The number of items up to the first sub-construct
 #' @param mp if TRUE, print multidimensional parallel reliability estimates
+#' @param print If TRUE, the result is printed to the screen.
 #' @return multidimensional_reliability a stratified alpha reliability estimate
 #' @return subdimensional_reliability reliability estimates of subdimensions
 #' @return omega_hierarchical general factor saturation
@@ -66,6 +67,6 @@ stratified_alpha <- function(x, until, mp = FALSE, print = TRUE) {
     cat("Sub-dimensional reliability (coefficient alpha)          ", sub_alpha, "\n")
     }
    }
-  
+
   invisible(out)
 }

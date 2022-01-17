@@ -3,12 +3,12 @@
 \docType{data}
 \name{McDonald2}
 \alias{McDonald2}
-\title{Mcdonald's (1999)  unidimensional data of five items}
+\title{McDonald's (1999)  unidimensional data of five items}
 \format{
 An object of class \code{matrix} (inherits from \code{array}) with 5 rows and 5 columns.
 }
 \source{
-McDonald, R. P. (1999). Test theory: A unified treatment. 
+McDonald, R. P. (1999). Test theory: A unified treatment.
 Lawrence Erlbaum.
 }
 \usage{

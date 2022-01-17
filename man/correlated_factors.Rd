@@ -4,7 +4,7 @@
 \alias{correlated_factors}
 \title{Obtain correlated factors reliability estimates of two-dimensional data}
 \usage{
-correlated_factors(x, until, nonneg_loading = FALSE)
+correlated_factors(x, until, nonneg_loading = FALSE, print = TRUE)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
@@ -12,6 +12,8 @@ correlated_factors(x, until, nonneg_loading = FALSE)
 \item{until}{The number of items up to the first sub-construct}
 
 \item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 a correlated factors reliability estimate

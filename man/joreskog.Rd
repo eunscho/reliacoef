@@ -2,14 +2,16 @@
 % Please edit documentation in R/joreskog.R
 \name{joreskog}
 \alias{joreskog}
-\title{Obtain Joreskog's congeneric reliability (Unidimensional CFA reliability)}
+\title{Obtain Jöreskog's congeneric reliability (Unidimensional CFA reliability)}
 \usage{
-joreskog(x, nonneg_loading = FALSE)
+joreskog(x, nonneg_loading = FALSE, print = TRUE)
 }
 \arguments{
 \item{x}{a dataframe or a matrix (unidimensional)}
 
 \item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 congeneric reliability coefficient
@@ -26,8 +28,8 @@ model.
 Name: Congeneric reliability is called by a variety of names, general users
 usually call it composite reliability, and reliability researchers often call
 it omega. One of the reasons for this confusion is that studies that first
-proposed this coefficient (Joreskog 1971) did not give this formula a name
- (Cho 2016). Joreskog (1971) proposed a matrix-form formula, and the
+proposed this coefficient (Jöreskog 1971) did not give this formula a name
+ (Cho 2016). Jöreskog (1971) proposed a matrix-form formula, and the
  commonly known non-matrix formula appears in Werts et al. (1974).
 
 Frequency of use: Congeneric reliability is the second most commonly used
@@ -58,7 +60,7 @@ reliability estimates: Testing structural assumptions. Educational and
 Psychological Measurement, 34, 25-33.
 }
 \seealso{
-[gilmer()] for the Gilmer-Fedlt coefficient
+[gilmer()] for the Gilmer-Feldt coefficient
 
 [feldt()] for classical congeneric reliability coefficient
 
@@ -68,4 +70,3 @@ Psychological Measurement, 34, 25-33.
 
 [Lambda4::omega.tot()] for a related function of the package Lambda4
 }
-\concept{congenerics}

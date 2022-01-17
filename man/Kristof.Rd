@@ -12,7 +12,7 @@ data(Kristof)
 }
 \description{
 Kristof's (1971) unidimensional data consisting of three items.This dataset
-is the result of the Scholastic Aptitude Test and is taken from Joreskog (1978).
+is the result of the Scholastic Aptitude Test and is taken from Jöreskog (1978).
 }
 \references{
 Kristof, W. On the theory of a set of tests which differ only in

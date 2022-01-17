@@ -4,12 +4,14 @@
 \alias{multi_parallel}
 \title{Obtain multidimensional parallel reliability}
 \usage{
-multi_parallel(x, until)
+multi_parallel(x, until, print = FALSE)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
 
 \item{until}{The number of items up to the first sub-construct}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 a multidimensional parallel reliability estimate
@@ -17,10 +19,6 @@ a multidimensional parallel reliability estimate
 \description{
 Multidimensional parallel reliability is derived from the multidimensional parallel model (Cho, 2016).
 This is equivalent to entering the correlation instead of the covariance into the stratified alpha formula.
-}
-\examples{
-multi_parallel(Osburn_moderate, 4)
-multi_parallel(Sijtsma2a, c(2, 4))
 }
 \references{
 Cho, E. (2016). Making reliability reliable: A systematic

@@ -9,6 +9,7 @@
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #' @param x a dataframe or a matrix (unidimensional)
 #' @export hancockan
+#' @import utils
 #' @references Hancock, G. R., & An, J. (2020). A Closed-Form Alternative for
 #' Estimating ω Reliability under Unidimensionality. Measurement:
 #' Interdisciplinary Research and Perspectives, 18(1), 1-14.
@@ -24,7 +25,7 @@ hancockan <- function(x) {
   lamb.sq.denom = matrix(0,n.item, n.lamb)
   #~~~ calculate loadings based on the covariance of all the other items
   for (i in 1:n.item) {
-    A = combn(setdiff((1:n.item), i), 2)
+    A = utils::combn(setdiff((1:n.item), i), 2)
     for (b in seq(1, (n.lamb * 2 - 1), by = 2)) {
       lamb.sq.num[i, (b + 1)/2] = m[i, A[b]] * m[i, A[b + 1]]
       lamb.sq.denom[i, (b + 1)/2] = m[A[b], A[b + 1]]

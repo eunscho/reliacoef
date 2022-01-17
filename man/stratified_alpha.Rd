@@ -4,7 +4,7 @@
 \alias{stratified_alpha}
 \title{Obtain stratified alpha reliability estimates of two-dimensional data}
 \usage{
-stratified_alpha(x, until, mp = FALSE)
+stratified_alpha(x, until, mp = FALSE, print = TRUE)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
@@ -12,6 +12,8 @@ stratified_alpha(x, until, mp = FALSE)
 \item{until}{The number of items up to the first sub-construct}
 
 \item{mp}{if TRUE, print multidimensional parallel reliability estimates}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 multidimensional_reliability a stratified alpha reliability estimate
@@ -28,7 +30,6 @@ through the until item.
 }
 \examples{
 stratified_alpha(Osburn_moderate, 4)
-stratified_alpha(Sijtsma2a, c(2, 4))
 }
 \references{
 Rajaratnam, N., Cronbach, L. J., & Gleser, G. C. (1965).
