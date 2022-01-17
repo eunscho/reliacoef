@@ -25,6 +25,7 @@
 #'
 #' @param x a dataframe or a matrix (unidimensional)
 #' @param nonneg_loading if TRUE, constraint loadings to nonnegative values
+#' @param print If TRUE, the result is printed to the screen.
 #' @return congeneric reliability coefficient
 #' @export joreskog
 #' @examples joreskog(Graham1)
