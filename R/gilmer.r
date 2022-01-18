@@ -1,6 +1,6 @@
 #' Obtain the Gilmer-Feldt reliability coefficient
 #'
-#' The Gilmer-Feldt coefficient is a unidimensional reliability coefficient
+#' It is a unidimensional reliability coefficient
 #' based on a congeneric model. The congeneric model is a model that allows
 #' the length, discrimination, or importance of items to be different,
 #' and is the least restrictive model among the models derived from

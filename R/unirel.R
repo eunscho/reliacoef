@@ -15,7 +15,6 @@
 #'@param psych.include Whether to include reliability coefficients
 #'(GLB.algebraic, GLB.fa) provided by the package psych
 #'@export unirel
-#' @import Rcsdp
 #' @references Cho, E. (in press). Neither Cronbach's alpha nor McDonald's
 #' omega: A comment on Sijtsma and Pfadt. Psychometrika.
 #' @examples unirel(Graham1)

@@ -1,6 +1,6 @@
 #' Obtain Hancock's H (CFA version of maximal reliability)
 #'
-#' Hancock's is the confirmatory factor analysis (CFA) version of maximal
+#' It is the confirmatory factor analysis (CFA) version of maximal
 #' reliability. This coefficient takes the standardized factor loading as the
 #' reliability of each item, and finds the weight that maximizes the
 #' reliability. Hence, Hancock's H shows a different result than the reliability
