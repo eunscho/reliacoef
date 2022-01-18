@@ -11,7 +11,7 @@
 #' @export hancockan
 #' @import utils
 #' @references Hancock, G. R., & An, J. (2020). A Closed-Form Alternative for
-#' Estimating ω Reliability under Unidimensionality. Measurement:
+#' Estimating omega Reliability under Unidimensionality. Measurement:
 #' Interdisciplinary Research and Perspectives, 18(1), 1-14.
 #' https://doi.org/10.1080/15366367.2019.1656049
 #' @examples hancockan(Graham1)
