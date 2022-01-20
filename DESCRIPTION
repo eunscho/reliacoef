@@ -2,8 +2,8 @@ Package: reliacoef
 Type: Package
 Title: Compute and Compare Unidimensional and Multidimensional Reliability Coefficients
 Version: 1.0.0
-Author: Eunseong Cho <bene@kw.ac.kr>
-Maintainer: Eunseong Cho <bene@kw.ac.kr>
+Author: Eunseong Cho <drescho91@gmail.com>
+Maintainer: Eunseong Cho <drescho91@gmail.com>
 Description: It calculates multiple reliability estimates and compares them with reliability estimates provided by other packages. 
     Unidimensional reliability estimators provided are as follows. coefficient alpha, 
     congeneric reliability, the Gilmer-Feldt coefficient, 
