@@ -12,12 +12,13 @@
 #'
 #' @author Eunseong Cho, \email{bene@kw.ac.kr}
 #' @param x a dataframe or a matrix (unidimensional)
+#' @param print If TRUE, the result is printed to the screen.
 #' @export mu3
 #' @references Ten Berge, J. M. F., & Zegers, F. E. (1978). A series of lower
 #' bounds to the reliability of a test. Psychometrika, 43(4), 575-579.
 #' @examples mu3(Graham1)
 
-mu3 <- function(x) {
+mu3 <- function(x, print = TRUE) {
     m <- get_cov(x)
     n <- nrow(m)/(nrow(m) - 1)
     off <- m
@@ -27,7 +28,8 @@ mu3 <- function(x) {
                  sqrt(sum(off^4) +
                           sqrt(n * sum(off^8))))
     out <- numerator/sum(m)
-    cat("Ten Berge and Zegers' mu3                                         ", out,
-        "\n")
+    if (print) {
+        cat("Ten Berge and Zegers' mu3                                         ", out, "\n")
+    }
     invisible(out)
 }
