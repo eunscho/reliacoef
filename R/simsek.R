@@ -16,12 +16,14 @@
 #' Communications in Statistics - Simulation and Computation, 42(9), 2008–2025.
 #' https://doi.org/10.1080/03610918.2012.689062
 #'
-simsek <- function(x, dim) {
+simsek <- function(x, dim, print = TRUE) {
   m <- get_cov(x)
   k <- nrow(m)
   sum_eigen <- sum(eigen(stats::cov2cor(m))$values[1:dim])
   out <- k / (k - dim) * (1 - dim / sum_eigen)
-  cat("Simsek-Noyan's theta (principal component analysis reliability) ", out,
-      "\n")
+  if (print) {
+    cat("Simsek-Noyan's theta (principal component analysis reliability) ", out,
+        "\n")
+  }
   invisible(out)
 }

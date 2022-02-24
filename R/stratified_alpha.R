@@ -11,7 +11,7 @@
 #' @param print If TRUE, the result is printed to the screen.
 #' @return multidimensional_reliability a stratified alpha reliability estimate
 #' @return subdimensional_reliability reliability estimates of subdimensions
-#' @return omega_hierarchical general factor saturation
+#' @return omega hierarchical general factor saturation
 #' @examples stratified_alpha(Osburn_moderate, 4)
 #' @references Rajaratnam, N., Cronbach, L. J., & Gleser, G. C. (1965).
 #' Generalizability of stratified-parallel tests. Psychometrika, 30(1), 39–56.
@@ -23,49 +23,47 @@
 #'
 stratified_alpha <- function(x, until, mp = FALSE, print = TRUE) {
   m <- get_cov(x)
-  n <- nrow(m)
   grp_start <- c(1, until + 1)
-  grp_end <- c(until, n)
-
-  sub_alpha <- sub_var <- vector("double", length(grp_start))
-  for (i in seq_along(grp_start)) {
-     sub_alpha[i] <- reliacoef::alpha(m[grp_start[i]:grp_end[i],
-                                       grp_start[i]:grp_end[i]],
-                                      print = FALSE)
-     sub_var[i] <- sum(m[grp_start[i]:grp_end[i],
-                           grp_start[i]:grp_end[i]])
-  }
-
-
-  sum <- vector("double", length = 1)
-  for (i in seq_along(grp_start)) {
-     sum <- sum + sub_var[i] * (1 - sub_alpha[i])
-  }
-  multi_rel <- 1 - sum / sum(m)
-
+  grp_end <- c(until, nrow(m))
+  item <- round(nrow(m)/length(grp_start))
+  
   # to obtain hierarchical omega
   btw_cov <- m
   for (i in seq_along(grp_start)) { # to conveniently compute the average correlation using na.rm
     btw_cov[grp_start[i]:grp_end[i], grp_start[i]:grp_end[i]] <- NA
   }
   avg_btw_cov <- mean(btw_cov, na.rm = TRUE)
-  omega_h <- n^2 * avg_btw_cov / sum(m)
+  omegah <- nrow(m)^2 * avg_btw_cov / sum(m)
+  
+  sub_rel <- sub_omegah <- sub_var <- vector("double", length(grp_start))
+  for (i in seq_along(grp_start)) {
+    sub_mat <- m[grp_start[i]:grp_end[i], grp_start[i]:grp_end[i]]
+    sub_rel[i] <- reliacoef::alpha(sub_mat, print = FALSE)
+    sub_var[i] <- sum(sub_mat)
+    sub_omegah[i] <- item^2 * avg_btw_cov / sub_var[i]
+  }
+
+  sum <- vector("double", length = 1)
+  for (i in seq_along(grp_start)) {
+     sum <- sum + sub_var[i] * (1 - sub_rel[i])
+  }
+  rel <- 1 - sum / sum(m)
 
   # output
-  out <- list(multidimensional_reliability = multi_rel,
-              omega_hiearchical = omega_h,
-              subdimensional_reliability = sub_alpha
-              )
+  out <- list(rel = rel,
+              omegah = omegah,
+              sub_rel = sub_rel,
+              sub_omegah = sub_omegah)
+  
   if (print) {
     if (mp) {
-    cat("multidimensional parallel reliability                    ", multi_rel, "\n")
-    cat("omega_hierarchical (from multidimensional parallel  )    ", omega_h, "\n")
-    cat("Sub-dimensional reliability (standardized alpha)         ", sub_alpha, "\n")
+    cat("multidimensional parallel reliability                    ", rel, "\n")
     } else {
-    cat("stratified alpha (multidimensional reliability)          ", multi_rel, "\n")
-    cat("omega_hierarchical (from multidimensional tau-equivalent)", omega_h, "\n")
-    cat("Sub-dimensional reliability (coefficient alpha)          ", sub_alpha, "\n")
+    cat("stratified alpha (multidimensional reliability)          ", rel, "\n")
     }
+    cat("omegahierarchical (from multidimensional tau-equivalent) ", omegah, "\n")
+    cat("Sub-dimensional reliability (coefficient alpha)          ", sub_rel, "\n")
+    cat("Sub-dimensional omega hiearchical                        ", sub_omegah, "\n")
    }
 
   invisible(out)
