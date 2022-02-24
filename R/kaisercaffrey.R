@@ -8,6 +8,7 @@
 #' alpha, and people may have mistaken it for coefficient alpha. See Vehkalahti
 #' (2000) and Cho(in press) for further explanation of this formula.
 #' @param x a dataframe or a matrix (unidimensional)
+#' @param print If TRUE, the result is printed to the screen.
 #' @return Kaiser-Caffrey's alpha
 #' @export kaisercaffrey
 #' @examples kaisercaffrey(Graham1)
@@ -24,12 +25,13 @@
 #' Tarkkonen's general method supersedes Cronbach's alpha. University of
 #' Helsinki.
 #'
-kaisercaffrey <- function(x) {
+kaisercaffrey <- function(x, print = TRUE) {
   matrix <- get_cov(x)
   k <- nrow(matrix)
   first_eigen <- eigen(stats::cov2cor(matrix))$values[1]
   out <- k / (k - 1) * (1 - 1 / first_eigen)
-  cat("Kaiser-Caffrey's alpha (principal component analysis reliability) ", out,
-      "\n")
+  if (print) {
+    cat("Kaiser-Caffrey's alpha (principal component analysis reliability) ", out, "\n")
+  }
   invisible(out)
 }
