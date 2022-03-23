@@ -25,23 +25,23 @@ nunnally <- function(x, until, method = "joreskog", print = TRUE) {
   dim <- length(until) + 1
   grp_start <- c(1, until + 1)
   grp_end <- c(until, n)
-  subdim_rel <- subprod <- vector("double", dim)
+  sub_rel <- subprod <- vector("double", dim)
   for (i in 1:dim) {
     subvar <- m[grp_start[i]:grp_end[i], grp_start[i]:grp_end[i]]
     if(method == "joreskog") {
-      subdim_rel[i] <- joreskog(subvar, print = F)
+      sub_rel[i] <- joreskog(subvar, print = F)
     } else if (method == "mu") {
-      subdim_rel[i] <- mu4(subvar, print = F)
+      sub_rel[i] <- mu4(subvar, print = F)
     } else if (method == "kaisercaffrey") {
-      subdim_rel[i] <- kaisercaffrey(subvar, print = F)
+      sub_rel[i] <- kaisercaffrey(subvar, print = F)
     }
-    subprod[i] <- sum(subvar) * (1 - subdim_rel[i])
+    subprod[i] <- sum(subvar) * (1 - sub_rel[i])
   }
-  multi_rel <- 1 - sum(subprod) / sum(m)
-  out <- list(multi_rel = multi_rel, subdim_rel = subdim_rel)
+  rel <- 1 - sum(subprod) / sum(m)
+  out <- list(multi_rel = multi_rel, sub_rel = sub_rel)
   if (print) {
-    cat("Multidimensional reliability using the bottom-up approach", multi_rel, "\n")
-    cat("Sub-dimensional reliability                              ", subdim_rel, "\n")
+    cat("Multidimensional reliability using the bottom-up approach", rel, "\n")
+    cat("Sub-dimensional reliability                              ", sub_rel, "\n")
   }
   invisible(out)
 }
