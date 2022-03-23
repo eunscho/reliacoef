@@ -4,10 +4,12 @@
 \alias{kaisercaffrey}
 \title{Obtain Kaiser-Caffrey's alpha (principal component analysis reliability)}
 \usage{
-kaisercaffrey(x)
+kaisercaffrey(x, print = TRUE)
 }
 \arguments{
 \item{x}{a dataframe or a matrix (unidimensional)}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \value{
 Kaiser-Caffrey's alpha

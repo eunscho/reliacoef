@@ -4,10 +4,12 @@
 \alias{mu2}
 \title{Obtain Ten Berge and Zegers' (1978) mu2}
 \usage{
-mu2(x)
+mu2(x, print = TRUE)
 }
 \arguments{
 \item{x}{a dataframe or a matrix (unidimensional)}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \description{
 Obtain Ten Berge and Zegers' (1978) mu2.

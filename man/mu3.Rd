@@ -4,10 +4,12 @@
 \alias{mu3}
 \title{Obtain Ten Berge and Socan's (2004) mu3}
 \usage{
-mu3(x)
+mu3(x, print = TRUE)
 }
 \arguments{
 \item{x}{a dataframe or a matrix (unidimensional)}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \description{
 Obtain Ten Berge and Socan's (2004) mu3.

@@ -4,10 +4,12 @@
 \alias{mu1}
 \title{Obtain Ten Berge and Zegers' (1978) mu1}
 \usage{
-mu1(x)
+mu1(x, print = TRUE)
 }
 \arguments{
 \item{x}{a dataframe or a matrix (unidimensional)}
+
+\item{print}{If TRUE, the result is printed to the screen.}
 }
 \description{
 Obtain Ten Berge and Zegers' (1978) mu1. mu1 equals Guttman's (1945) lambda2.
