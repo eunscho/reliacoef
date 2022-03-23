@@ -38,7 +38,7 @@ nunnally <- function(x, until, method = "joreskog", print = TRUE) {
     subprod[i] <- sum(subvar) * (1 - sub_rel[i])
   }
   rel <- 1 - sum(subprod) / sum(m)
-  out <- list(multi_rel = multi_rel, sub_rel = sub_rel)
+  out <- list(rel = rel, sub_rel = sub_rel)
   if (print) {
     cat("Multidimensional reliability using the bottom-up approach", rel, "\n")
     cat("Sub-dimensional reliability                              ", sub_rel, "\n")
