@@ -81,7 +81,6 @@ correlated_factors <- function(x, nobs = NULL, until, print = TRUE) {
   if (print) {
     cat("correlated factors reliability (multidimensional CFA)    ", rel, "\n")
     cat("Sub-dimensional reliability (congeneric reliability)     ", sub_rel, "\n")
-    cat("Sub-dimensional omega hiearchical                        ", sub_omegah, "\n")
   }
   invisible(out)
 }
