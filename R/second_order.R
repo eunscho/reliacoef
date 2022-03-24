@@ -56,15 +56,12 @@ second_order <- function(x, nobs = NULL, until, print = TRUE) {
     }
   }
   
-  for (i in 2:length(grp_start)) {
-    model_str <- paste0(model_str, "\n a", i, " > 0")
-    model_str <- paste0(model_str, "\n a", i, " < 1")
+  for (i in 1:length(grp_start)) {
     model_str <- paste0(model_str, "\n FoF", i, " ~~ 1 * FoF", i)
   }
   
   model_str <- paste0(model_str, "\n SoF ~~ 1 * SoF")
-  model_str <- paste0(model_str, "\n FoF1 ~~ 1 * FoF1")
-  
+
   for (i in 1:nrow(m)) { # to prevent negative errors
     model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0")
   }
