@@ -56,7 +56,7 @@ correlated_factors <- function(x, nobs = NULL, until, print = TRUE) {
     model_str <- paste0(model_str, "\n V", i, " ~~ e", i, "*V", i, "\n e", i, "> 0")
   }
 
-  lav_out <- lavaan::cfa(model_str, sample.cov = m, sample.nobs = 500)
+  lav_out <- lavaan::cfa(model_str, sample.cov = m, sample.nobs = nobs)
   if (lavaan::inspect(lav_out, what = "converged")) {
     fit <- lavaan::inspect(lav_out, what = "fit")
     est <- lavaan::inspect(lav_out, what = "est")
