@@ -20,7 +20,7 @@ multidimensional_reliability a stratified alpha reliability estimate
 
 subdimensional_reliability reliability estimates of subdimensions
 
-omega_hierarchical general factor saturation
+omega hierarchical general factor saturation
 }
 \description{
 Obtain stratified alpha reliability estimates of two-dimensional data. It

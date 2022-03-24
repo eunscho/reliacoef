@@ -4,24 +4,18 @@
 \alias{bifactor}
 \title{Obtain bifactor reliability estimates of two-dimensional data}
 \usage{
-bifactor(
-  x,
-  until,
-  only_first_grp = FALSE,
-  nonneg_loading = FALSE,
-  print = TRUE
-)
+bifactor(x, nobs = NULL, until, print = TRUE)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
 
+\item{nobs}{number of observations (i.e., sample size)}
+
 \item{until}{The number of items up to the first sub-construct}
 
-\item{only_first_grp}{whether it is only_first_grp and Cui's simulation, which has only one group factor}
-
-\item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
-
 \item{print}{If TRUE, the result is printed to the screen.}
+
+\item{only_first_grp}{whether it is only_first_grp and Cui's simulation, which has only one group factor}
 }
 \value{
 a bifactor reliability estimate

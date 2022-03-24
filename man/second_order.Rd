@@ -4,23 +4,14 @@
 \alias{second_order}
 \title{Obtain second-order factor reliability estimates of two-dimensional data}
 \usage{
-second_order(
-  x,
-  until,
-  only_first_grp = FALSE,
-  nonneg_loading = FALSE,
-  print = TRUE
-)
+second_order(x, nobs = NULL, until, print = TRUE)
 }
 \arguments{
 \item{x}{observed item scores or their covariances}
 
+\item{nobs}{number of observations (i.e., sample size)}
+
 \item{until}{The number of items up to the first sub-construct}
-
-\item{only_first_grp}{TRUE if only_first_grp. In this case, this function does not compute a
-reliability estimate.}
-
-\item{nonneg_loading}{if TRUE, constraint loadings to nonnegative values}
 
 \item{print}{If TRUE, the result is printed to the screen.}
 }
