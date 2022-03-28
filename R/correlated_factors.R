@@ -50,6 +50,13 @@ correlated_factors <- function(x, nobs = NULL, until, print = TRUE) {
 
   for (i in seq_along(grp_start)) {
     model_str <- paste0(model_str, "\n G", i, " ~~ 1 * G", i)
+    if (i > 1) { # to prevent correlation less than -1 or greater than 1
+      for (j in 1:(i - 1)) {
+        model_str <- paste0(model_str, "\n G", i, " ~~ a", i, j, " * G", j)
+        model_str <- paste0(model_str, "\n a", i, j, " < 1")
+        model_str <- paste0(model_str, "\n a", i, j, " > -1")
+      }  
+    }
   }
 
   for (i in 1:nrow(m)) { # to prevent negative errors
